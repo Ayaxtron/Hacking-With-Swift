@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     var counter = 0
     
     override func viewDidLoad() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(callShare))
         super.viewDidLoad()
         countries.append("estonia")
         countries.append("france")
@@ -70,6 +71,12 @@ class ViewController: UIViewController {
             score = 0
             counter = 0
         }
+    }
+    
+    @objc func callShare() {
+        let vc = UIActivityViewController(activityItems: [score], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
 }
 
