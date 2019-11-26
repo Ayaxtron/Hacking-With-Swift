@@ -1,0 +1,12 @@
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				881AC0BB238C9BF000F116E3 /* Debug */,
+				881AC0BC238C9BF000F116E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 881AC0A0238C9BED00F116E3 /* Project object */;
+}
