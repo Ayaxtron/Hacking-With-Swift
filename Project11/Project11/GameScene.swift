@@ -10,6 +10,7 @@ import SpriteKit
 var scoreLabel: SKLabelNode!
 var editLabel: SKLabelNode!
 
+var limit = 0
 var score = 0 {
     didSet {
         scoreLabel.text = "Score \(score)"
@@ -73,18 +74,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
                     let box = SKSpriteNode(color: UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue:CGFloat.random(in: 0...1), alpha: 1), size: size)
                     box.zRotation = CGFloat.random(in: 0...3)
                     box.position = location
-                    
+                    box.name = "obstacle"
                     box.physicsBody = SKPhysicsBody(rectangleOf: box.size)
                     box.physicsBody?.isDynamic = false
                     addChild(box)
                 } else {
-                    let ball = SKSpriteNode(imageNamed: "ballRed")
+                    guard limit > 5 else { return }
+                    let ballNames = ["ballRed", "ballBlue", "ballYellow", "ballPurple", "ballGrey", "ballCyan", "ballGreen"]
+                    let ballNumber = Int.random(in: 0...6)
+                    let ball = SKSpriteNode(imageNamed: ballNames[ballNumber])
                     ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
                     ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
                     ball.physicsBody?.restitution = 0.4
                     ball.position = location
                     ball.name = "ball"
                     addChild(ball)
+                    limit += 1
                 }
             }
         }
@@ -128,10 +133,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         if object.name == "good"{
             destroy(ball: ball)
             score += 1
+            limit -= 1
         }else if object.name == "bad"{
             destroy(ball: ball)
             score -= 1
+        }else if object.name == "obstacle" {
+            object.removeFromParent()
         }
+        
     }
     
     func destroy(ball: SKNode){
