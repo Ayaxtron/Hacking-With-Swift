@@ -65,7 +65,7 @@ class ViewController: UITableViewController {
     
     func showError() {
         DispatchQueue.main.async {
-            let ac = UIAlertController(title: "Loading Error", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
+            let ac = UIAlertController(title: "Loading Error", message: "There was a problem loading the feled; please check your connection and try again.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(ac, animated: true)
         }
