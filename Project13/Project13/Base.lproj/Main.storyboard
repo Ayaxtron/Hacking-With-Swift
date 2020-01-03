@@ -46,7 +46,6 @@
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="H3N-AC-hZx">
                                 <rect key="frame" x="96" y="558" width="262" height="30"/>
                                 <connections>
-                                    <action selector="intensity:" destination="BYZ-38-t0r" eventType="valueChanged" id="dwG-EQ-S7M"/>
                                     <action selector="intensityChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="NES-tB-PLH"/>
                                 </connections>
                             </slider>
