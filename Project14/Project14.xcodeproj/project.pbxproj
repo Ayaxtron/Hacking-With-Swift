@@ -1,0 +1,32 @@
+				PRODUCT_BUNDLE_IDENTIFIER = mx.AyaxAlexis.Project14;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		888C0FB723C05B190028298F /* Build configuration list for PBXProject "Project14" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				888C0FD223C05B1E0028298F /* Debug */,
+				888C0FD323C05B1E0028298F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		888C0FD423C05B1E0028298F /* Build configuration list for PBXNativeTarget "Project14" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				888C0FD523C05B1E0028298F /* Debug */,
+				888C0FD623C05B1E0028298F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 888C0FB423C05B190028298F /* Project object */;
+}
