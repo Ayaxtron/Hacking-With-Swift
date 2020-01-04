@@ -94,6 +94,7 @@
                     <navigationItem key="navigationItem" id="Qg8-XT-fjf"/>
                     <connections>
                         <outlet property="imageView" destination="0Jm-On-S0r" id="iYi-uQ-lz1"/>
+                        <outlet property="intensity" destination="H3N-AC-hZx" id="Q1s-BC-ib5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
