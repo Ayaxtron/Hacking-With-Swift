@@ -35,6 +35,8 @@ class WhackSlot: SKNode {
     func show(hideTime: Double){
         if isVisible { return }
         
+        charNode.xScale = 1
+        charNode.yScale = 1
         charNode.run(SKAction.moveBy(x: 0, y: 80, duration: 0.05))
         isVisible = true
         isHit = false
@@ -57,6 +59,16 @@ class WhackSlot: SKNode {
         
         charNode.run(SKAction.moveBy(x: 0, y: -80, duration: 0.05))
         isVisible = false
+    }
+    
+    func hit() {
+        isHit = true
+        //SKAction.run will run any code provided as a closure
+        //SKAction.sequence takes an array of actions and executes them in order
+        let delay = SKAction.wait(forDuration: 0.25)
+        let hide = SKAction.moveBy(x: 0, y: -80, duration: 0.5)
+        let notVisible = SKAction.run { [unowned self] in self.isVisible = false }
+        charNode.run(SKAction.sequence([delay, hide, notVisible]))
     }
     
 }
