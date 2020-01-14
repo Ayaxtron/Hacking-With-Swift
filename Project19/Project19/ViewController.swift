@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+//To get started with a fresh extension, go to the File menu and choose New > Target. When you're asked to choose a template, select iOS > Application Extension > Action Extension, then click Next. For the name just call it Extension, make sure Action Type is set to "Presents User Interface",
 
 }
 
