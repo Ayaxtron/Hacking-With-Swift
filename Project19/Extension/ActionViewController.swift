@@ -11,6 +11,9 @@ import MobileCoreServices
 
 class ActionViewController: UIViewController {
 
+    var pageTitle = ""
+    var pageURL = ""
+    
     @IBOutlet weak var imageView: UIImageView!
 
     override func viewDidLoad() {
@@ -22,10 +25,18 @@ class ActionViewController: UIViewController {
             if let itemProvider = inputItem.attachments?.first {
                 //Ask the item provider to actually provide us with its item, but you'll notice it uses a closure so this code executes asynchronously. 
                 itemProvider.loadItem(forTypeIdentifier: kUTTypePropertyList as String) { [weak self] (dict, error) in
-                    //do stuff
+                    guard let itemDictionary = dict as? NSDictionary else { return }
+                    guard let javaScriptValues = itemDictionary[NSExtensionJavaScriptPreprocessingResultsKey] as? NSDictionary else { return }
+                    self?.pageTitle = javaScriptValues["title"] as? String ?? ""
+                    self?.pageURL = javaScriptValues["URL"] as? String ?? ""
+                    
+                    DispatchQueue.main.async {
+                        self?.title = self?.pageTitle
+                    }
                 }
             }
         }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
     }
 
     @IBAction func done() {
