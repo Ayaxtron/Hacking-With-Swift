@@ -47,4 +47,11 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+    //Because the method is actually calles in UIViewCnotroller when the device is shaken, we need to reference it to the actual scene of our game
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        guard let skView = view as? SKView else { return }
+        guard let gameScene = skView.scene as? GameScene else { return }
+        gameScene.explodeFireworks()
+    }
 }

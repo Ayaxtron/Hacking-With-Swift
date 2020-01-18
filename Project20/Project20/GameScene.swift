@@ -117,6 +117,88 @@ class GameScene: SKScene {
             break
         }
     }
+    
+    func checkTouches(_ touches: Set<UITouch>) {
+        guard let touch = touches.first else { return }
+        
+        let location = touch.location(in: self)
+        let nodesAtPoint = nodes(at: location)
+        //For is a loop, case...as is for typecasting as SKSpriteNode and let is to create a variable called node.
+        for case let node as SKSpriteNode in nodesAtPoint {
+            //Continue will just end the current iteration but continue the loop
+            guard node.name == "firework" else { continue }
+            //To check the selected fireworks are of the same color
+            for parent in fireworks {
+                guard let firework =  parent.children.first as? SKSpriteNode else { continue }
+                if firework.name == "selected" && firework.color != node.color {
+                    firework.name = "firework"
+                    firework.colorBlendFactor = 1
+                }
+            }
+            node.name = "selected"
+            node.colorBlendFactor = 0
+        }
+    }
+    
+    func explode(firework: SKNode) {
+        if let emitter = SKEmitterNode(fileNamed: "explode") {
+            emitter.position = firework.position
+            addChild(emitter)
+        }
+        //Remove firework from the game scene
+        firework.removeFromParent()
+    }
+    
+    func explodeFireworks() {
+        var numExploded = 0
+        //Enumerated() literally enumerates the fireworks array giving the index a number and fireworkContainer the values in fireworks
+        for (index, fireworkContainer) in fireworks.enumerated().reversed() {
+            guard let firework = fireworkContainer.children.first as? SKSpriteNode else { continue }
+            if firework.name == "selected" {
+                //destroy this firework
+                explode(firework: fireworkContainer)
+                fireworks.remove(at: index)
+                numExploded += 1
+            }
+        }
+        
+        switch numExploded {
+        case 0:
+            break
+        case 1:
+            score += 200
+        case 2:
+            score += 500
+        case 3:
+            score += 1500
+        case 4:
+            score += 2500
+        default:
+            score += 4000
+        }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        checkTouches(touches)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        checkTouches(touches)
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        //Counting from last to first
+        for(index, firework) in fireworks.enumerated().reversed() {
+            if firework.position.y > 900 {
+                //Fireworks array stores the container node, not the firework SpriteNode, thats why it's necessary to remove the container and the spriteNode
+                fireworks.remove(at: index)
+                firework.removeFromParent()
+            }
+        }
+    }
+    
     /*
     
     func touchDown(atPoint pos : CGPoint) {
@@ -126,14 +208,14 @@ class GameScene: SKScene {
             self.addChild(n)
         }
     }
+     func touchMoved(toPoint pos : CGPoint) {
+     if let n = self.spinnyNode?.copy() as! SKShapeNode? {
+     n.position = pos
+     n.strokeColor = SKColor.blue
+     self.addChild(n)
+     }
+     }
     
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
     
     func touchUp(atPoint pos : CGPoint) {
         if let n = self.spinnyNode?.copy() as! SKShapeNode? {
@@ -143,17 +225,7 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
@@ -164,8 +236,6 @@ class GameScene: SKScene {
     }
     
     
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
-    }
+    
  */
 }
