@@ -37,5 +37,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
     }
+    
 }
 
