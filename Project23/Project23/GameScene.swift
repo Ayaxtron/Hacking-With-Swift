@@ -255,7 +255,7 @@ class GameScene: SKScene {
             life = livesImages[1]
         } else {
             life = livesImages[2]
-            endGame(triggerByBomb = false)
+            endGame(triggerByBomb: false)
         }
         
         life.texture = SKTexture(imageNamed: "sliceLifeGone")
@@ -355,7 +355,7 @@ class GameScene: SKScene {
                 let fadeOut = SKAction.fadeOut(withDuration: 0.2)
                 let group = SKAction.group([scaleOut, fadeOut])
                 
-                let seq = SKAction.sequence([group, removeFromParent()])
+                let seq = SKAction.sequence([group, .removeFromParent()])
                 bombContainer.run(seq)
                 
                 if let index = activeEnemies.firstIndex(of: bombContainer) {
@@ -363,7 +363,7 @@ class GameScene: SKScene {
                 }
                 
                 run(SKAction.playSoundFileNamed("explosion.caf", waitForCompletion: false))
-                endGame(triggeredByBomb = true)
+                endGame(triggerByBomb: true)
             }
         }
     }
