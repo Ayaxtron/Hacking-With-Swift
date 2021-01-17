@@ -64,3 +64,44 @@ attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 16), range
 attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 24), range: NSRange(location: 8, length: 1))
 attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 32), range: NSRange(location: 10, length: 4))
 attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 40), range: NSRange(location: 15, length: 6))
+
+
+let test = "Swift is really nice"
+let test2 = "this/nis/na/ntest"
+
+extension String {
+    func withPrefix(_ prefix: String) -> String {
+        if self.hasPrefix(prefix) {
+            return self
+        } else {
+            return prefix + self
+        }
+    }
+    
+    func isNumeric() -> Bool {
+        for letter in self {
+            if letter.isNumber {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func lines() -> [String]{
+        var array = [String](), word = ""
+        for letter in self {
+            if letter == "/" {
+                array.append(word)
+                word = ""
+            } else {
+                word.append(letter)
+            }
+        }
+        array.append(word)
+        return array
+    }
+}
+
+print(test.withPrefix("car"))
+print(test.isNumeric())
+print(test2.lines())
