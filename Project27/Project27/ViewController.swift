@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     @IBAction func redrawTapped(_ sender: Any) {
         currentDrawType += 1
         
-        if currentDrawType > 5 {
+        if currentDrawType > 7 {
             currentDrawType = 0
         }
         
@@ -40,6 +40,10 @@ class ViewController: UIViewController {
             drawLines()
         case 5:
             drawImagesAndText()
+        case 6:
+            drawEmoji()
+        case 7:
+            drawTwin()
         default:
             break
         }
@@ -166,6 +170,66 @@ class ViewController: UIViewController {
             
             let mouse = UIImage(named: "mouse")
             mouse?.draw(at: CGPoint(x: 300, y: 150))
+        }
+        imageView.image = img
+    }
+    
+    
+    func drawEmoji() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 170, height: 170))
+        let img = renderer.image { ctx in
+            let rightEye = CGRect(x: 0, y: 0, width: 50, height: 50).insetBy(dx: 5, dy: 5)
+            let leftEye = CGRect(x: 100, y: 0, width: 50, height: 50).insetBy(dx: 5, dy: 5)
+            let mouth = CGRect(x: 25, y: 100, width: 100, height: 50).insetBy(dx: 5, dy: 5)
+            
+            ctx.cgContext.setFillColor(UIColor.yellow.cgColor)
+            ctx.cgContext.setStrokeColor(UIColor.black.cgColor)
+            ctx.cgContext.setLineWidth(10)
+            
+            ctx.cgContext.addEllipse(in: rightEye)
+            ctx.cgContext.addEllipse(in: leftEye)
+            ctx.cgContext.addEllipse(in: mouth)
+            ctx.cgContext.drawPath(using: .fillStroke)
+        }
+        imageView.image = img
+    }
+    
+    func drawTwin() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 170, height: 170))
+        
+        let img = renderer.image { ctx in
+            //ctx.cgContext.translateBy(x: 85, y: 85)
+            
+            
+            ctx.cgContext.move(to: CGPoint(x: 0, y: 50))
+                
+            ctx.cgContext.addLine(to: CGPoint(x: 0, y: 50))
+            ctx.cgContext.addLine(to: CGPoint(x: 30, y: 50))
+            ctx.cgContext.addLine(to: CGPoint(x: 15, y: 50))
+            ctx.cgContext.addLine(to: CGPoint(x: 15, y: 100))
+            
+            ctx.cgContext.move(to: CGPoint(x: 40, y: 50))
+            
+            ctx.cgContext.addLine(to: CGPoint(x: 40, y: 50))
+            ctx.cgContext.addLine(to: CGPoint(x: 50, y: 100))
+            ctx.cgContext.addLine(to: CGPoint(x: 60, y: 50))
+            ctx.cgContext.addLine(to: CGPoint(x: 70, y: 100))
+            ctx.cgContext.addLine(to: CGPoint(x: 80, y: 50))
+            
+            ctx.cgContext.move(to: CGPoint(x: 90, y: 50))
+            
+            ctx.cgContext.addLine(to: CGPoint(x: 90, y: 50))
+            ctx.cgContext.addLine(to: CGPoint(x: 90, y: 100))
+            
+            ctx.cgContext.move(to: CGPoint(x: 100, y: 50))
+            
+            ctx.cgContext.addLine(to: CGPoint(x: 100, y: 100))
+            ctx.cgContext.addLine(to: CGPoint(x: 100, y: 50))
+            ctx.cgContext.addLine(to: CGPoint(x: 130, y: 100))
+            ctx.cgContext.addLine(to: CGPoint(x: 130, y: 50))
+            
+            ctx.cgContext.setStrokeColor(UIColor.black.cgColor)
+            ctx.cgContext.strokePath()
         }
         imageView.image = img
     }
